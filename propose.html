@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Propose Day Surprise ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+    }
+
+    .box {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 20px;
+        text-align: center;
+        width: 380px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        position: relative;
+        z-index: 2;
+    }
+
+    h1 {
+        color: #e6005c;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #444;
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .heart {
+        font-size: 45px;
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0%,100% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+    }
+
+    .buttons {
+        margin-top: 25px;
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    #yesBtn {
+        background: #e6005c;
+        color: white;
+        margin-right: 10px;
+    }
+
+    #noBtn {
+        background: #ccc;
+        color: #333;
+        position: absolute;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .final {
+        font-size: 20px;
+        color: #e6005c;
+        font-weight: bold;
+    }
+
+    /* Floating hearts */
+    .heart-float {
+        position: absolute;
+        color: red;
+        font-size: 20px;
+        animation: floatUp 6s linear infinite;
+        opacity: 0.8;
+        z-index: 1;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(100vh) scale(0.5);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-10vh) scale(1.2);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- First Card -->
+<div class="box" id="card">
+    <div class="heart">❤️</div>
+    <h1>Special Proposal Day</h1>
+    <p>
+        Choose wisely,<br>
+        but my heart already knows the answer.
+        <br><br>
+        Will you be my forever?
+    </p>
+
+    <div class="buttons">
+        <button id="yesBtn">YES 💍</button>
+        <button id="noBtn">NO ❌</button>
+    </div>
+</div>
+
+<!-- Second Card -->
+<div class="box hidden" id="finalCard">
+    <div class="heart">💖</div>
+    <p class="final">
+        Haha! 😄  
+        I knew you’d say YES!  
+        <br><br>
+        Thank you for being my smile, my strength, and my forever..❤️<br>
+        Happy Propose Day..!
+    </p>
+
+    <br>
+    <button onclick="showLove()" style="background:#e6005c;color:white;">
+        Happy Propose Day ❤️
+    </button>
+</div>
+
+<!-- Final Love Message -->
+<div class="box hidden" id="loveMsg">
+    ❤️ Lots of love from <b>Bindu</b> ❤️<br>
+    Thank you 💖
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const card = document.getElementById("card");
+    const finalCard = document.getElementById("finalCard");
+
+    noBtn.addEventListener("mouseover", () => {
+        const x = Math.random() * 250;
+        const y = Math.random() * 200;
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+        card.classList.add("hidden");
+        finalCard.classList.remove("hidden");
+    });
+
+    function showLove() {
+        finalCard.classList.add("hidden");
+        document.getElementById("loveMsg").classList.remove("hidden");
+
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart-float";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 300);
+    }
+</script>
+
+</body>
+</html>
