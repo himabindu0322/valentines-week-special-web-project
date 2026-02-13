@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Chocolate Day 🍫</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:'Segoe UI', sans-serif;
+    background:radial-gradient(circle at top,#6d4c41,#3e2723);
+    color:#fff;
+}
+
+/* 🍫🍬🍭 Floating Background */
+.floating{
+    position:absolute;
+    font-size:26px;
+    animation:float linear infinite;
+    pointer-events:none;
+    opacity:0.9;
+}
+
+@keyframes float{
+    0%{ transform:translateY(-15vh) rotate(0deg); opacity:0; }
+    10%{opacity:1;}
+    100%{ transform:translateY(115vh) rotate(360deg); opacity:0; }
+}
+
+/* 🍫✨ Chocolate Blast */
+.sparkle{
+    position:absolute;
+    font-size:26px;
+    animation:blast 2.5s ease-out forwards;
+    pointer-events:none;
+}
+
+@keyframes blast{
+    0%{transform:scale(0) translateY(0); opacity:1;}
+    100%{transform:scale(2.5) translateY(-200px); opacity:0;}
+}
+
+/* 💖 Center Content */
+.container{
+    position:relative;
+    z-index:10;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.card{
+    position:relative;
+    background:rgba(62,39,35,0.75);
+    padding:50px 60px;
+    border-radius:25px;
+    box-shadow:0 25px 60px rgba(0,0,0,0.6);
+    backdrop-filter:blur(6px);
+    animation:pop 1.2s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.6); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+h1{
+    font-size:48px;
+    color:#ffcc80;
+    margin-bottom:25px;
+    animation:glowPulse 2.5s infinite;
+}
+
+@keyframes glowPulse{
+    0%{ text-shadow:0 0 15px #ffcc80; }
+    50%{ text-shadow:0 0 40px #ffab91; }
+    100%{ text-shadow:0 0 15px #ffcc80; }
+}
+
+.quote{
+    font-size:20px;
+    line-height:1.6;
+    color:#fbe9e7;
+    margin-bottom:25px;
+}
+
+button{
+    padding:14px 36px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(45deg,#ffb74d,#ff8a65);
+    color:#3e2723;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    transition:0.3s;
+    margin:10px;
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:linear-gradient(45deg,#ffd180,#ffab91);
+}
+
+/* 🔙 Back button top-right */
+.back-btn{
+    position:absolute;
+    top:20px;
+    right:20px;
+    padding:10px 22px;
+    font-size:14px;
+}
+
+/* ❌ Tricky No button */
+.no-btn{
+    position:relative;
+}
+
+#loveMessage, #chocolateList, #finalMessage{
+    display:none;
+}
+
+#finalMessage p{
+    font-size:24px;
+    color:#ffecb3;
+    line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+const sweets=["🍫","🍬","🍭"];
+for(let i=0;i<70;i++){
+    let s=document.createElement("div");
+    s.className="floating";
+    s.innerText=sweets[Math.floor(Math.random()*sweets.length)];
+    s.style.left=Math.random()*100+"vw";
+    s.style.fontSize=(18+Math.random()*35)+"px";
+    s.style.animationDuration=(6+Math.random()*12)+"s";
+    document.body.appendChild(s);
+}
+</script>
+
+<div class="container">
+<div class="card">
+
+<div id="firstView">
+    <h1>Happy Chocolate Day 🍫</h1>
+    <div class="quote">
+        Life is sweeter with chocolates,<br>
+        and even sweeter with you 💕<br>
+        May your day be filled with love,<br>
+        joy, and lots of chocolate!
+    </div>
+    <button onclick="showLove()">Send Sweet Love ❤️</button>
+</div>
+
+<div id="loveMessage">
+    <p>
+        Roses are Red,<br>
+        Chocolate is Brown..!<br>
+        I bought it myself<br>
+        and I'm not share with you
+    </p>
+    <button onclick="showChocolates()">Choose and Present a Chocolate to Bindu ❤️</button>
+</div>
+
+<div id="chocolateList">
+    <h1>🍨💚🍫🥮🍬</h1>
+    <button onclick="finalShow('dairy')">🍨 Dairy Milk</button>
+    <button onclick="finalShow('dark')">💚 Dark Chocolate</button>
+    <button onclick="finalShow('ferrero')">🍫 Ferrero Rocher</button>
+    <button onclick="finalShow('kunafa')">🥮 Dubai Kunafa</button>
+    <button onclick="finalShow('snickers')">🍬 Snickers</button>
+</div>
+
+<div id="finalMessage">
+    <button class="back-btn" onclick="backToChocolates()">🔙 Chocolates</button>
+
+    <h1>🍫✨</h1>
+    <p id="finalText"></p>
+
+    <div id="choiceButtons">
+        <button onclick="yesClicked()">Yes 💖</button>
+        <button class="no-btn" onmouseover="moveNo(this)">No 😜</button>
+    </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function showLove(){
+    firstView.style.display="none";
+    loveMessage.style.display="block";
+}
+
+function showChocolates(){
+    loveMessage.style.display="none";
+    chocolateList.style.display="block";
+}
+
+function backToChocolates(){
+    finalMessage.style.display="none";
+    chocolateList.style.display="block";
+}
+
+function finalShow(type){
+    chocolateList.style.display="none";
+    finalMessage.style.display="block";
+
+    const messages={
+        dairy:`Dairy Milk in hand, Bindu by my side are just meant to make life sweeter.<br>
+        Bindu will be so happy if you present her this chocolate 💖`,
+        dark:`Strong like Dark Chocolate, lovely like Bindu are perfect together.<br>
+        Bindu will be so happy if you present her this chocolate 💖`,
+        ferrero:`When rich layers of Ferrero Rocher meet the sparkle of Bindu, magic happens.<br>
+        Bindu will be so happy if you present her this chocolate 💖`,
+        kunafa:`Bindu is sweet like chocolate and rich like Kunafa.<br>
+        Bindu will be so happy if you present her this chocolate 💖`,
+        snickers:`Bold like Bindu, nutty like Snickers — unforgettable sparks.<br>
+        Bindu will be so happy if you present her this chocolate 💖`
+    };
+
+    finalText.innerHTML = messages[type];
+    choiceButtons.style.display="block";
+
+    for(let i=0;i<40;i++){
+        let blast=document.createElement("div");
+        blast.className="sparkle";
+        blast.innerText="🍫✨";
+        blast.style.left=Math.random()*100+"vw";
+        blast.style.top=Math.random()*100+"vh";
+        document.body.appendChild(blast);
+        setTimeout(()=>blast.remove(),2500);
+    }
+}
+
+/* 🏃 No button escape */
+function moveNo(btn){
+    const x=Math.random()*200-100;
+    const y=Math.random()*150-75;
+    btn.style.transform=`translate(${x}px,${y}px)`;
+}
+
+/* ⚠️ Yes button drama */
+function yesClicked(){
+    finalText.innerHTML=`
+        ⚠️ <b>Warning</b><br><br>
+        Give me the chocolate immediately 🍫<br>
+        Otherwise I may start being <b>Dramatic</b><br>
+        and remember forever 😤💔
+    `;
+    choiceButtons.style.display="none";
+}
+</script>
+
+</body>
+</html>
